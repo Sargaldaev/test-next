@@ -1,4 +1,9 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 html,
+
 body {
   min-height: 100vh;
   padding: 0;
@@ -14,3 +19,4 @@ a {
 * {
   box-sizing: border-box;
 }
+
