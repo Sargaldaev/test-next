@@ -6,18 +6,32 @@ interface ProductsState {
   products: Product[];
   product: Product | null;
   fetchLoad: boolean;
+  searchedProducts: Product[];
 }
 
 const initialState: ProductsState = {
   products: [],
   product: null,
-  fetchLoad: false
+  fetchLoad: false,
+  searchedProducts: [],
 };
 
 export const productSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    sortByAsc: (state) => {
+      state.products = state.products.sort((a, b) => a.price - b.price);
+    },
+    sortByDesc: (state) => {
+      state.products = state.products.sort((a, b) => b.price - a.price);
+    },
+    searchProducts: (state, { payload }) => {
+      state.searchedProducts = state.products.filter(item =>
+        item.title.toLowerCase().includes(payload.toLowerCase())
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state: ProductsState) => {
       state.fetchLoad = true;
@@ -45,3 +59,4 @@ export const productSlice = createSlice({
 });
 
 export const productsReducer = productSlice.reducer;
+export const { sortByAsc, sortByDesc, searchProducts } = productSlice.actions;

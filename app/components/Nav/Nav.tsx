@@ -6,7 +6,7 @@ const Nav = () => {
 
       <ul className="flex text-sm font-normal">
         <li className="mr-6">
-          <a href="#">Main page</a>
+          <a href="/">Main page</a>
         </li>
         <li className="mr-6">
           <a href="#">Delivery</a>

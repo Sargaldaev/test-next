@@ -1,13 +1,24 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import logo from '../../../assets/images/logo.svg';
-import search from '../../../assets/images/searchIcon.svg';
 import favourite from '../../../assets/images/favourite.svg';
 import Link from 'next/link';
-
+import {useAppDispatch} from '@/lib/hooks';
+import {searchProducts} from '@/lib/features/products/productsSlice';
 
 const Header = () => {
+  const dispatch = useAppDispatch();
+
+  const [search, setSearch] = useState<string>('');
+
+  const changeValue = (e) => {
+    const { value } = e.target;
+
+    setSearch(value);
+    dispatch(searchProducts(value));
+  };
+
   return (
     <div className="flex items-center pb-[12px] pb-4 border-b border-b-gray-200 space-x-40">
       <div>
@@ -21,9 +32,14 @@ const Header = () => {
 
       <div className="w-full max-w-sm min-w-[200px] relative mt-4">
         <div className="relative">
-          <input type="text"
-                 className="w-[428px] text-base bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md p-4 transition duration-300 ease"
-                 placeholder="Search"/>
+          <input
+            type="text"
+            className="w-[428px] text-base bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md p-4 transition duration-300 ease"
+            placeholder="Search"
+            value={search}
+            onChange={changeValue}
+          />
+
           <button
             className="absolute right-[-40px] top-1 rounded p-1.5 border border-transparent text-center text-sm transition-all"
             type="button">
