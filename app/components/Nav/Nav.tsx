@@ -2,7 +2,7 @@ import React from 'react';
 
 const Nav = () => {
   return (
-    <div>
+    <div className={'py-[15px] border-b mb-[21px]'}>
 
       <ul className="flex text-sm font-normal">
         <li className="mr-6">

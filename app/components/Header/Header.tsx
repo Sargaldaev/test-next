@@ -4,11 +4,12 @@ import Image from 'next/image';
 import logo from '..//..//..//public/logo.svg';
 import search from '..//..//..//public/searchIcon.svg';
 import favourite from '..//..//..//public/favourite.svg';
+import Link from 'next/link';
 
 
 const Header = () => {
   return (
-    <div className="flex items-center pb-4 border-b border-b-gray-200 space-x-40">
+    <div className="flex items-center pb-[12px] pb-4 border-b border-b-gray-200 space-x-40">
       <div>
         <Image
           src={logo}
@@ -35,14 +36,14 @@ const Header = () => {
         </div>
       </div>
 
-      <div className={'ml-auto'}>
+      <Link href={'/favourite'} className={'ml-auto'}>
         <Image
           src={favourite}
           alt="favourite"
           className="ml-4"
         />
-        <span>favourite</span>
-      </div>
+        <span className={'text-sm'}>Favourite</span>
+      </Link>
     </div>
 
 
