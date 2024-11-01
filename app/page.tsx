@@ -1,6 +1,6 @@
 'use client';
 import Sidebar from '@/app/components/Sidebar/Sidebar';
-import Product from '@/app/components/Product/product';
+import Product from '@/app/components/Product/Product';
 
 export default function Page() {
 
@@ -12,7 +12,6 @@ export default function Page() {
             <div>
               <Sidebar/>
             </div>
-
             <div className={' w-[750px] '}>
               <Product/>
             </div>

@@ -1,29 +1,35 @@
 'use client';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Image from 'next/image';
 import heartImage from '@/assets/images/favourite.svg';
 import StarRatings from 'react-star-ratings';
+import {useRouter} from 'next/navigation';
+import {useAppDispatch, useAppSelector} from '@/lib/hooks';
+import {getProduct} from '@/lib/features/products/productThunk';
 
-const Page = () => {
-  const product = {
-    title: 'Mens Casual Premium Slim Fit T-Shirts',
-    description: 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.',
-    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-    rating: { rate: 4, count: 120 },
-    price: 22.30,
-  };
+const Page = ({ params }: { params: { id: string } }) => {
 
-  return (
+  const dispatch = useAppDispatch();
+  const {product} = useAppSelector(state => state.products);
+
+  useEffect(() => {
+    if (params.id && !product) {
+      dispatch(getProduct(params.id));
+    }
+  }, [dispatch, params.id]);
+
+  return product && (
     <div className="mt-[30px] mx-[10%] lg:flex gap-11">
-      <Image src={product.image} width={192} height={256} className="h-min mx-auto" alt="product-img" />
+      <Image src={product.image} width={192} height={256} className="h-min mx-auto" alt="product-img"/>
 
       <div className="mt-10">
         <div className="flex justify-between">
           <h2 className="text-xl font-bold max-w-[260px] font-['Satoshi_Black']">{product.title}</h2>
 
-          <button className="flex items-center gap-3 px-[22px] py-[10px] rounded-md border border-[#E2E8F0] text-sm leading-5 font-['Satoshi'] h-min">
+          <button
+            className="flex items-center gap-3 px-[22px] py-[10px] rounded-md border border-[#E2E8F0] text-sm leading-5 font-['Satoshi'] h-min">
             Add to favourite
-            <Image src={heartImage.src} width={20} height={20} alt="heart-img" />
+            <Image src={heartImage.src} width={20} height={20} alt="heart-img"/>
           </button>
         </div>
 
@@ -56,4 +62,4 @@ const Page = () => {
   );
 };
 
-  export default Page;
+export default Page;
