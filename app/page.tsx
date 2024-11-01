@@ -1,10 +1,8 @@
 'use client';
 import Sidebar from '@/app/components/Sidebar/Sidebar';
-import Products from '@/app/products/products';
-import Footer from '@/app/components/Footer/Footer';
+import Product from '@/app/components/Product/product';
 
 export default function Page() {
-
 
   return (
     <>
@@ -16,7 +14,7 @@ export default function Page() {
             </div>
 
             <div className={' w-[750px] '}>
-              <Products/>
+              <Product/>
             </div>
           </div>
         </main>

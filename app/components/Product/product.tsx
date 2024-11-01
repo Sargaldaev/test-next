@@ -1,14 +1,14 @@
 'use client';
 import React, {useEffect} from 'react';
-import favourite from '..//..//public/favourite.svg';
-import backpack from '..//..//public/Backpack.png';
+import favourite from '../../../assets/images/favourite.svg';
+import backpack from '../../../assets/images/Backpack.png';
 import {useSelector} from 'react-redux';
 import {RootState} from '@/lib/store';
 import {useAppDispatch} from '@/lib/hooks';
 import {getProducts} from '@/lib/features/products/productThunk';
 import Image from 'next/image';
 
-const Products = () => {
+const Product = () => {
   const {products} = useSelector((state: RootState) => state.products);
   const dispatch = useAppDispatch();
 
@@ -390,4 +390,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Product;

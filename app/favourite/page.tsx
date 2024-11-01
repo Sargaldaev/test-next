@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import clothes from '..//../public/T-Shirts.png';
+import clothes from '../../assets/images/T-Shirts.png';
 
 const Page = () => {
   return (

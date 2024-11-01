@@ -1,6 +1,11 @@
-interface Products {
+interface Product {
   category: string;
   title: string;
+  description: string;
   image: string;
-  price:number
+  price: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }

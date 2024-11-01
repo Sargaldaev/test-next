@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import logo from '..//..//..//public/logo.svg';
-import search from '..//..//..//public/searchIcon.svg';
-import favourite from '..//..//..//public/favourite.svg';
+import logo from '../../../assets/images/logo.svg';
+import search from '../../../assets/images/searchIcon.svg';
+import favourite from '../../../assets/images/favourite.svg';
 import Link from 'next/link';
 
 
@@ -45,8 +45,6 @@ const Header = () => {
         <span className={'text-sm'}>Favourite</span>
       </Link>
     </div>
-
-
   );
 };
 
