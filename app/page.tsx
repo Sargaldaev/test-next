@@ -7,18 +7,14 @@ import {getProducts} from '@/lib/features/products/productThunk';
 import Header from '@/app/components/Header/Header';
 import Nav from '@/app/components/Nav/Nav';
 import Sidebar from '@/app/components/Sidebar/Sidebar';
+import Products from '@/app/products/products';
+import Footer from '@/app/components/Footer/Footer';
 
 export default function Page() {
-  const {products} = useSelector((state: RootState) => state.products);
-  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   if (!products.length) {
-  //     dispatch(getProducts());
-  //   }
-  // }, [dispatch, products]);
 
   return (
+    <>
     <div className="container w-10/12  mx-auto ">
       <header>
         <Header/>
@@ -30,12 +26,25 @@ export default function Page() {
 
 
       <main>
-        <div>
+        <div className={'flex space-x-20'}>
+
+        <div className={'w-[138px]'}>
           <Sidebar/>
         </div>
-        main
+
+        <div className={' w-[750px] '}>
+          <Products/>
+        </div>
+
+        </div>
       </main>
+
     </div>
+      <footer>
+        <Footer/>
+      </footer>
+    </>
+
   );
 }
 

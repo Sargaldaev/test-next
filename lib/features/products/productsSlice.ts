@@ -1,10 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getProducts} from '@/lib/features/products/productThunk';
-import {AppStore, RootState} from '@/lib/store';
 
 
 interface ProductsState {
-  products: [];
+  products: Products[];
   fetchLoad: boolean;
 }
 
@@ -18,8 +17,15 @@ export const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProducts.fulfilled, (state: RootState, {payload}) => {
+    builder.addCase(getProducts.pending, (state: ProductsState) => {
+      state.fetchLoad = true;
+    });
+    builder.addCase(getProducts.fulfilled, (state: ProductsState, {payload}) => {
+      state.fetchLoad = false;
       state.products = payload;
+    });
+    builder.addCase(getProducts.rejected, (state: ProductsState) => {
+      state.fetchLoad = false;
     });
   }
 
