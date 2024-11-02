@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {getProduct, getProducts} from '@/lib/features/products/productThunk';
-
+import { createSlice } from '@reduxjs/toolkit';
+import { getProduct, getProducts } from '@/lib/features/products/productThunk';
+import { Product } from '@/app/types';
 
 interface ProductsState {
   products: Product[];
@@ -27,8 +27,8 @@ export const productSlice = createSlice({
       state.products = state.products.sort((a, b) => b.price - a.price);
     },
     searchProducts: (state, { payload }) => {
-      state.searchedProducts = state.products.filter(item =>
-        item.title.toLowerCase().includes(payload.toLowerCase())
+      state.searchedProducts = state.products.filter((item) =>
+        item.title.toLowerCase().includes(payload.toLowerCase()),
       );
     },
   },
@@ -36,7 +36,7 @@ export const productSlice = createSlice({
     builder.addCase(getProducts.pending, (state: ProductsState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(getProducts.fulfilled, (state: ProductsState, {payload}) => {
+    builder.addCase(getProducts.fulfilled, (state: ProductsState, { payload }) => {
       state.fetchLoad = false;
       state.products = payload;
     });
@@ -47,15 +47,14 @@ export const productSlice = createSlice({
     builder.addCase(getProduct.pending, (state: ProductsState) => {
       state.fetchLoad = true;
     });
-    builder.addCase(getProduct.fulfilled, (state: ProductsState, {payload}) => {
+    builder.addCase(getProduct.fulfilled, (state: ProductsState, { payload }) => {
       state.fetchLoad = false;
       state.product = payload;
     });
     builder.addCase(getProduct.rejected, (state: ProductsState) => {
       state.fetchLoad = false;
     });
-  }
-
+  },
 });
 
 export const productsReducer = productSlice.reducer;
