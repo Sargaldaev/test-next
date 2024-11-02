@@ -21,17 +21,16 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center pb-[12px] pb-4 border-b border-b-gray-200 space-x-40">
+    <div className="flex items-center pb-[12px] pb-4 border-b border-b-gray-200 space-x-[110px]">
       <div>
         <Image
           src={logo}
           alt="Logo"
           width={116}
-          className="mr-8"
         />
       </div>
 
-      <div className="w-full max-w-sm min-w-[200px] relative mt-4">
+      <div style={{marginRight:'145px'}} className="w-full max-w-sm min-w-[200px] relative mt-4">
         <div className="relative">
           <input
             type="text"
@@ -53,7 +52,8 @@ const Header = () => {
         </div>
       </div>
 
-      <Link href={'/favourite'} className={'ml-auto'}>
+
+      <Link href={'/favourite'} >
         <Image
           src={favourite}
           alt="favourite"

@@ -42,53 +42,54 @@ const Page = () => {
         Favourite
       </h1>
 
-      {products.length} item
+      <p className="text-2xl">
+        {products.length} item
+      </p>
 
-      {
-        products.map(product => (
-            <div className={'flex justify-between w-[853px]'} onClick={() => router.push('/products/' + product.id)}>
-
-              <div className={'flex align-center'}>
+      <div className="flex flex-col gap-5 mt-5">
+        {
+          products.map(product => (
+              <div
+                className={'flex justify-between w-full'}
+                onClick={() => router.push('/products/' + product.id)}
+              >
                 <Image
                   className={'mr-[50px]'}
                   src={product.image}
                   width={134}
                   height={178}
-                  alt={'image'}/>
+                  alt={'image'}
+                />
 
-                <div className={'w-[215px]'}>
-            <span
-              className={'text-sm'}
-            >
-              {product.category}
-            </span>
+                <div className="flex justify-between items-center w-full h-min">
+                  <div className={'w-[215px]'}>
+                    <span className={'text-sm'}>{product.category}</span>
 
-                  <p
-                    className={'text-xl font-black'}
-                  >
-                    {product.title}
-                  </p>
+                    <p className={'text-xl font-black'}>
+                      {product.title}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center">
+                    <span className={'text-xl font-black mr-[24px]'}>{product.price} $</span>
+
+                    <button
+                      style={{ color: '#707070' }}
+                      className={'text-sm '}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeFavourite(product.id);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              <div>
-                <span className={'text-xl font-black mr-[24px]'}>{product.price} $</span>
-                <button
-                  style={{color:'#707070'}}
-                  className={'text-sm '}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeFavourite(product.id);
-                  }}
-                >
-                  Remove
-                </button>
-              </div>
-
-            </div>
+            ),
           )
-        )
-      }
+        }
+      </div>
     </>
   );
 };

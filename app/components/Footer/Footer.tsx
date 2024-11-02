@@ -4,7 +4,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <div
-      style={{background:'#333333E5',padding:'20px'}}
+      style={{background:'#333333E5',padding:'20px',marginTop:'100px'}}
     >
       <span
         className='font-satoshi text-[10px]'
