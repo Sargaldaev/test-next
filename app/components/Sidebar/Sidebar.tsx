@@ -36,7 +36,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="font-satoshi flex ml-[-105px] flex-col mb-4 space-y-2">
+    <div className="font-satoshi flex flex-col mb-4 space-y-2">
       <span style={{ fontSize: '15px' }} className="font-['Satoshi_Medium']">
         Filters
       </span>

@@ -35,15 +35,15 @@ const Page = () => {
   };
 
   return (
-    <>
-      <h1 className={'text-2xl border-b border-b mb-3'}>Favourite</h1>
-      <p className="text-2xl">{products.length} item</p>
+    <div>
+      <h1 className={'text-[32px] border-b border-b mt-5 mb-4 px-[15%]'}>Favourite</h1>
+      <p className="text-2xl mx-[15%]">{products.length} item</p>
 
-      <div className="flex flex-col gap-5 mt-5">
+      <div className="flex flex-col gap-5 mt-5 mx-[15%]">
         {products.map((product) => (
           <div
             key={product.id}
-            className={'flex justify-between w-full'}
+            className={'flex justify-between w-full cursor-pointer'}
             onClick={() => router.push('/products/' + product.id)}
           >
             <Image className={'mr-[50px]'} src={product.image} width={134} height={178} alt={'image'} />
@@ -73,7 +73,7 @@ const Page = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

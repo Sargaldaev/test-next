@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center pb-[12px] pb-4 border-b border-b-gray-200 space-x-[110px]">
+    <div className="flex justify-between items-center pb-[12px] pb-4 mx-[15%]">
       <div>
         <Image src={logo} alt="Logo" width={116} />
       </div>
@@ -50,7 +50,7 @@ const Header = () => {
         </div>
       </div>
 
-      <Link href={'/favourite'}>
+      <Link href={'/favourites'}>
         <Image src={favourite} alt="favourite" className="ml-4" width={20} height={20} />
         <span className={'text-sm'}>Favourite</span>
       </Link>

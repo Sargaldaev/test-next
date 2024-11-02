@@ -29,7 +29,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     product && (
-      <div className="mt-[30px] lg:flex gap-11">
+      <div className="mt-[30px] mx-[15%] lg:flex gap-11">
         <Image src={product.image} width={192} height={256} className="h-min mx-auto" alt="product-img" />
 
         <div className="mt-10">
