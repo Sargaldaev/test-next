@@ -1,22 +1,35 @@
 'use client';
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import heartImage from '@/assets/images/favourite.svg';
 import StarRatings from 'react-star-ratings';
-import {useRouter} from 'next/navigation';
-import {useAppDispatch, useAppSelector} from '@/lib/hooks';
-import {getProduct} from '@/lib/features/products/productThunk';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { getProduct } from '@/lib/features/products/productThunk';
 
 const Page = ({ params }: { params: { id: string } }) => {
 
   const dispatch = useAppDispatch();
-  const {product} = useAppSelector(state => state.products);
+  const { product } = useAppSelector(state => state.products);
+
+  const [favourites, setFavourites] = useState<string[]>([]);
 
   useEffect(() => {
+    setFavourites(JSON.parse(localStorage.getItem('favourites') ?? '[]') as string[]);
+
     if (params.id && !product) {
       dispatch(getProduct(params.id));
     }
   }, [dispatch, params.id]);
+
+  const addFavourite = () => {
+    let favourites = JSON.parse(localStorage.getItem('favourites') ?? '[]') as string[];
+
+    favourites.push(params.id);
+
+    setFavourites(prevState => [...prevState, params.id]);
+
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+  };
 
   return product && (
     <div className="mt-[30px] mx-[10%] lg:flex gap-11">
@@ -26,11 +39,16 @@ const Page = ({ params }: { params: { id: string } }) => {
         <div className="flex justify-between">
           <h2 className="text-xl font-bold max-w-[260px] font-['Satoshi_Black']">{product.title}</h2>
 
-          <button
-            className="flex items-center gap-3 px-[22px] py-[10px] rounded-md border border-[#E2E8F0] text-sm leading-5 font-['Satoshi'] h-min">
-            Add to favourite
-            <Image src={heartImage.src} width={20} height={20} alt="heart-img"/>
-          </button>
+          {
+            !favourites.includes(params.id) &&
+            <button
+              className="flex items-center gap-3 px-[22px] py-[10px] rounded-md border border-[#E2E8F0] text-sm leading-5 font-['Satoshi'] h-min"
+              onClick={addFavourite}
+            >
+              Add to favourite
+              <Image src={heartImage.src} width={20} height={20} alt="heart-img"/>
+            </button>
+          }
         </div>
 
         <div className="flex gap-2 mt-2">

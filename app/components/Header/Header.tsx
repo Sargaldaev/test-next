@@ -12,6 +12,7 @@ const Header = () => {
 
   const [search, setSearch] = useState<string>('');
 
+
   const changeValue = (e) => {
     const { value } = e.target;
 
@@ -57,6 +58,8 @@ const Header = () => {
           src={favourite}
           alt="favourite"
           className="ml-4"
+          width={20}
+          height={20}
         />
         <span className={'text-sm'}>Favourite</span>
       </Link>

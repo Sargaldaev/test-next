@@ -1,6 +1,8 @@
 'use client';
 import Sidebar from '@/app/components/Sidebar/Sidebar';
-import Products from '@/app/components/Products/Products';
+import { lazy, Suspense } from 'react';
+
+const Products = lazy(() => import('@/app/components/Products/Products'));
 
 export default function Page() {
 
@@ -13,7 +15,9 @@ export default function Page() {
               <Sidebar/>
             </div>
             <div className={' w-[750px] '}>
-              <Products/>
+              <Suspense fallback={<div>loading...</div>}>
+                <Products/>
+              </Suspense>
             </div>
           </div>
         </main>

@@ -1,25 +1,28 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import favourite from '@/assets/images/favourite.svg';
-import {useSelector} from 'react-redux';
-import {RootState} from '@/lib/store';
-import {useAppDispatch} from '@/lib/hooks';
-import {getProducts} from '@/lib/features/products/productThunk';
+import favouriteFilled from '@/assets/images/favourite-filled.svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
+import { useAppDispatch } from '@/lib/hooks';
+import { getProducts } from '@/lib/features/products/productThunk';
 import Image from 'next/image';
-import {useRouter} from 'next/navigation';
-import {searchProducts, sortByAsc, sortByDesc} from '@/lib/features/products/productsSlice';
+import { useRouter } from 'next/navigation';
+import { sortByAsc, sortByDesc } from '@/lib/features/products/productsSlice';
 
 const Products = () => {
   const router = useRouter();
 
-  const {products, searchedProducts} = useSelector((state: RootState) => state.products);
+  const { products, searchedProducts } = useSelector((state: RootState) => state.products);
   const dispatch = useAppDispatch();
 
   const [showSelect, setShowSelect] = useState(false);
-  const [sortOrder, setSortOrder] = useState(null);
+  const [sortOrder, setSortOrder] = useState<string | null>(null);
 
-  const handleSelectChange = (event) => {
-    const { value } = event.target;
+  const [favourites, setFavourites] = useState<string[]>([]);
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
 
     setSortOrder(value);
 
@@ -33,14 +36,17 @@ const Products = () => {
   const handleSortClick = () => {
     setShowSelect(!showSelect);
   };
+
   useEffect(() => {
+    setFavourites(JSON.parse(localStorage.getItem('favourites') ?? '[]') as string[]);
+
     if (!products.length) {
       dispatch(getProducts());
     }
   }, [dispatch, products]);
 
-  const addFavourite = (id) => {
-    let favourites = JSON.parse(localStorage.getItem('favourites')) as string[] | null;
+  const addFavourite = (id: string) => {
+    let favourites = JSON.parse(localStorage.getItem('favourites') ?? '[]') as string[];
 
     const favouriteIndex = favourites ? favourites.indexOf(id) : -1;
 
@@ -51,6 +57,8 @@ const Products = () => {
     } else {
       favourites.push(id);
     }
+
+    setFavourites(favourites);
 
     localStorage.setItem('favourites', JSON.stringify(favourites));
   };
@@ -65,17 +73,17 @@ const Products = () => {
       <p>Catalog</p>
 
       <div>
-          <div className="mt-2">
-            <select
-              value={sortOrder}
-              onChange={handleSelectChange}
-              className="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="Price" disabled>Price</option>
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
+        <div className="mt-2">
+          <select
+            value={sortOrder || undefined}
+            onChange={handleSelectChange}
+            className="p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="Price" disabled>Price</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
       </div>
 
 
@@ -91,18 +99,23 @@ const Products = () => {
                     <div>
                       <h3
                         className=" text-sm text-gray-500 text-sm"
-                        style={{fill: '#818181'}}
+                        style={{ fill: '#818181' }}
                       >
                         {item.category}
                       </h3>
                       <h2 className="text-lg font-semibold text-gray-800 text-sm mb-5">{item.title}</h2>
                     </div>
-                    <button onClick={(e) => {
-                      e.stopPropagation();
-                      addFavourite(item.id);
-                    }}>
-                      <Image src={favourite.src} width={20} height={20} alt="favourite-img"/>
-                    </button>
+
+                    <Image
+                      src={favourites.includes(item.id) ? favouriteFilled.src : favourite.src}
+                      width={20}
+                      height={20}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addFavourite(item.id);
+                      }}
+                      alt="favourite-img"
+                    />
                   </div>
 
                   <div className="mb-4">
