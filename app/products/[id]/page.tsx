@@ -6,7 +6,7 @@ import StarRatings from 'react-star-ratings';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getProduct } from '@/lib/features/products/productThunk';
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params } : Promise<any>) => {
   const dispatch = useAppDispatch();
   const { product } = useAppSelector((state) => state.products);
 
