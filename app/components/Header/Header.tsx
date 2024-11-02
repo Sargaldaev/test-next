@@ -12,7 +12,7 @@ const Header = () => {
 
   const [search, setSearch] = useState<string>('');
 
-  const changeValue = (e) => {
+  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
     setSearch(value);

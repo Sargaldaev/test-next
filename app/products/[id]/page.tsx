@@ -5,18 +5,20 @@ import heartImage from '@/assets/images/favourite.svg';
 import StarRatings from 'react-star-ratings';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { getProduct } from '@/lib/features/products/productThunk';
+import { Params } from 'next/dist/server/request/params';
+import { useParams } from 'next/navigation';
 
-const Page = ({ params }: Promise<any>) => {
+const Page = () => {
   const dispatch = useAppDispatch();
   const { product } = useAppSelector((state) => state.products);
-
+  const params = useParams() as { id: string };
   const [favourites, setFavourites] = useState<string[]>([]);
 
   useEffect(() => {
     setFavourites(JSON.parse(localStorage.getItem('favourites') ?? '[]') as string[]);
 
     if (params.id && !product) {
-      dispatch(getProduct(params.id));
+      dispatch(getProduct([params.id].join()));
     }
   }, [dispatch, params, product]);
 

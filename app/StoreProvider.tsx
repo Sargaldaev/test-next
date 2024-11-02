@@ -15,7 +15,7 @@ export const StoreProvider = ({ children }: Props) => {
 
   if (!storeRef.current && typeof window !== 'undefined') {
     // Create the store instance the first time this renders
-    storeRef.current = makeStore();
+    storeRef.current = makeStore() as AppStore;
   }
 
   useEffect(() => {
@@ -27,5 +27,5 @@ export const StoreProvider = ({ children }: Props) => {
     }
   }, []);
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return storeRef.current && <Provider store={storeRef.current}>{children}</Provider>;
 };

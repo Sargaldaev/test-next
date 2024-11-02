@@ -17,7 +17,7 @@ const Sidebar = () => {
     })();
   }, []);
 
-  const checkedCategory = (category) => {
+  const checkedCategory = (category: string) => {
     setSelectedCategories((prevState) => {
       const stateCopy = [...prevState];
 
